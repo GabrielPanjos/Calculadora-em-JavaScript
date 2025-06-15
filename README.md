@@ -19,10 +19,10 @@ Este projeto é uma calculadora funcional desenvolvida com **HTML**, **CSS** e *
 ## 📁 Estrutura do projeto
 
 ```
-├── index.html # Estrutura principal da calculadora
+├── index.html      # Estrutura principal da calculadora
 ├── static/
-│ ├── style.css # Estilo visual da calculadora
-│ └── script.js # Lógica da calculadora
+│   ├── style.css   # Estilo visual da calculadora
+│   └── script.js   # Lógica da calculadora
 ```
 
 ## 🔧 Em desenvolvimento
