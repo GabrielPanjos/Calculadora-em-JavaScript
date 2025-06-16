@@ -85,6 +85,7 @@ button {
     cursor: default;
     display: flex;
     align-items: center;
+    justify-content: right;
     padding: 0 10px 0 10px;
 }
 
@@ -92,7 +93,7 @@ button {
     background-color: rgba(240, 248, 255, 0);
     border: rgba(240, 248, 255, 0);
     color: rgb(110, 110, 110);
-    font-size: 15px;
+    font-size: 13px;
     height: 15px;
     width: 100%;
     cursor: default;

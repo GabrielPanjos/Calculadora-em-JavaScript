@@ -1,63 +1,131 @@
 let conta = []
+let exibirConta = []
+let previaConta = []
+let exibirPreviaConta = []
+let resultado = 0
 
 const adicionarNumero = (index) => {
+    exibirConta.push(index)
 
     // exibindo números adicionados na calculadora
-    document.querySelector('#resultado-div').innerHTML += index
+    document.querySelector('#resultado-div').innerHTML = exibirConta.join('')
 
     // adicionando número no array "conta"
     conta.push(index)
+
+    previaConta.push(index)
+
+
+
 }
 
 const adicionarOperacao = (index) => {
 
-    if (index == "%") {
+    // transformando PreviaConta em um array
+    exibirPreviaConta = previaConta.join('')
+    previaConta = exibirPreviaConta.split('')
 
+
+    // condição caso ja tenha operação (para não ter duas operações, ex: 8xx, 8++)
+    if (previaConta[previaConta.length - 1] == "x" || previaConta[previaConta.length - 1] == "%" || previaConta[previaConta.length - 1] == "+" || previaConta[previaConta.length - 1] == "-" || previaConta[previaConta.length - 1] == "÷" || previaConta == "") {
+
+        // caso de certo
     } else {
+        console.log('foi')
 
+        exibirConta = exibirConta.join('')
+        console.log(exibirConta)
+
+        if (index == "%") {
+
+            previaConta.push('%')
+
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+
+
+
+        } else if (index == "*") {
+
+            previaConta.push('x')
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+
+            console.log("resultado " + atualizarConta(resultado, parseInt(exibirConta), index))
+
+        } else if (index == "+") {
+
+            previaConta.push('+')
+
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+
+        } else if (index == "-") {
+
+            previaConta.push('-')
+
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+
+        } else if (index == "/") {
+
+            previaConta.push('÷')
+
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+        }
+
+        resultado = parseInt(exibirConta)
+
+        // limpando array "exibirConta"
+        exibirConta = []
     }
+
 }
 
 const limparConta = () => {
-    // limpando array "conta" e exibição dos números na calculadora
+    // limpando arrays "conta" e "exibirConta", e exibição dos números na calculadora
     document.querySelector('#resultado-div').innerHTML = ""
     document.querySelector('#sub-resultado-div').innerHTML = ""
     conta = []
+    exibirConta = []
+    previaConta = []
+
 }
 
 const apagarDigito = () => {
 
+    // condição caso tente apagar sem dígito
     if (conta.length == 0) {
 
         // log caso tente apagar sem dígito
-        console.log('Digite um número')
         document.querySelector('#resultado-div').innerHTML = ""
+
     } else {
 
         // removendo ultimo digito do array "conta"
         conta.pop()
-
-        // juntando todos os valores do array "conta"
-        juntarConta = conta.join('')
+        exibirConta.pop()
+        previaConta.pop()
 
 
         // condição caso ele apague o ultimo dígito sobrando (para não exibir NaN)
         if (conta.length == 0) {
 
             // log caso tente apagar sem dígito
-            console.log('Digite um número')
             document.querySelector('#resultado-div').innerHTML = ""
+
         } else {
 
-            // transformando o array "conta" em número inteiro e exibindo o número na calculadora
-            document.querySelector('#resultado-div').innerHTML = parseInt(juntarConta)
+            // transformando o array "exibirConta" em número inteiro e exibindo o número na calculadora
+            document.querySelector('#resultado-div').innerHTML = parseInt(conta.join(''))
+
         }
 
     }
 }
 
-const atualizarConta = () => {
-
+const atualizarConta = (a = 0, b = "a", operacao) => {
+    if (a == 0 & b == "a") {
+        return a
+    } else {
+        return parseInt(a) + operacao + parseInt(b)
+    }
 }
 
 const inverterSinal = () => {
