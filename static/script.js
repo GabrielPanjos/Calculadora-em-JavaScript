@@ -2,7 +2,7 @@ let conta = []
 let exibirConta = []
 let previaConta = []
 let exibirPreviaConta = []
-let resultado = 0
+let resultado = "a"
 
 const adicionarNumero = (index) => {
     exibirConta.push(index)
@@ -34,7 +34,7 @@ const adicionarOperacao = (index) => {
         console.log('foi')
 
         exibirConta = exibirConta.join('')
-        console.log(exibirConta)
+
 
         if (index == "%") {
 
@@ -42,32 +42,22 @@ const adicionarOperacao = (index) => {
 
             document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
 
-
-
         } else if (index == "*") {
+            
 
-            previaConta.push('x')
-            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
-
-            console.log("resultado " + atualizarConta(resultado, parseInt(exibirConta), index))
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index) + "x"
 
         } else if (index == "+") {
 
-            previaConta.push('+')
-
-            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index) + "+"
 
         } else if (index == "-") {
 
-            previaConta.push('-')
-
-            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index) + "-"
 
         } else if (index == "/") {
 
-            previaConta.push('÷')
-
-            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index) + "÷"
         }
 
         resultado = parseInt(exibirConta)
@@ -85,6 +75,8 @@ const limparConta = () => {
     conta = []
     exibirConta = []
     previaConta = []
+    exibirPreviaConta = []
+    resultado = "a"
 
 }
 
@@ -121,10 +113,25 @@ const apagarDigito = () => {
 }
 
 const atualizarConta = (a = 0, b = "a", operacao) => {
-    if (a == 0 & b == "a") {
-        return a
+    if (a == "a") {
+        return previaConta.join('')
     } else {
-        return parseInt(a) + operacao + parseInt(b)
+
+        a = parseInt(a)
+        b = parseInt(b)
+
+        switch (operacao) {
+            case '+':
+                return a + b
+            case '-':
+                return a - b
+            case '*':
+                return a * b
+            case '/':
+                return a / b
+            default:
+                return a
+        }
     }
 }
 
