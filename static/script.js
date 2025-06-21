@@ -6,6 +6,11 @@ let resultado = "a"
 
 const adicionarNumero = (index) => {
 
+    if (previaConta[previaConta.length - 1] == "=") {
+        previaConta = []
+        document.querySelector('#sub-resultado-div').innerHTML = ""
+    }
+
     if (exibirConta.length == 16) {
         document.querySelector('#resultado-div').innerHTML = exibirConta.join('')
     } else {
@@ -51,25 +56,25 @@ const adicionarOperacao = (index) => {
 
         } else if (index == "*") {
 
-            previaConta.push('x')
+            previaConta.push(' x')
 
             document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
 
         } else if (index == "+") {
 
-            previaConta.push('+')
+            previaConta.push(' +')
 
             document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
 
         } else if (index == "-") {
 
-            previaConta.push('-')
+            previaConta.push(' -')
 
             document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
 
         } else if (index == "/") {
 
-            previaConta.push('÷')
+            previaConta.push(' ÷')
 
             document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
 
@@ -95,6 +100,7 @@ const adicionarOperacao = (index) => {
 }
 
 const limparConta = () => {
+
     // limpando arrays "conta" e "exibirConta", e exibição dos números na calculadora
     document.querySelector('#resultado-div').innerHTML = "0"
     document.querySelector('#sub-resultado-div').innerHTML = ""
@@ -138,6 +144,7 @@ const apagarDigito = () => {
 }
 
 const atualizarConta = (a = 0, b = "a", operacao) => {
+
     if (a == "a") {
         return previaConta.join('')
     } else {
@@ -179,6 +186,85 @@ const atualizarConta = (a = 0, b = "a", operacao) => {
 }
 
 const mostrarResultado = () => {
+
+    // separando array "previaConta" e transformando em string
+    previaConta = previaConta.join('')
+    previaConta = previaConta.split('')
+
+    // variáveis da função
+    let mudar = true
+
+    let primeira = []
+    let segunda = []
+
+    // mandando números para arrays "primeira" e "segunda"
+    previaConta.forEach(numero => {
+
+        switch (numero) {
+            case '+':
+                mudar = false
+            case '-':
+                mudar = false
+            case 'x':
+                mudar = false
+            case '÷':
+                mudar = false
+            default:
+        }
+
+        if (mudar) {
+            primeira.push(numero)
+        } else if (mudar === false) {
+            segunda.push(numero)
+        }
+
+    })
+
+    // remove operação e o espaço
+    previaConta.splice(primeira.length - 1, 1)
+    segunda.splice(0, 1)
+    primeira.splice(primeira.length - 1, 2)
+
+    // transformando arrays primeira e segunda em números inteiros
+    primeira = parseInt(primeira.join(''))
+    segunda = parseInt(segunda.join(''))
+
+
+
+    let resultado = 0
+
+    // fazendo a operação
+    previaConta.forEach(numero => {
+
+        switch (numero) {
+            case '+':
+                resultado = primeira + segunda
+                break
+            case '-':
+                resultado = primeira - segunda
+                break
+            case 'x':
+                resultado = primeira * segunda
+                break
+            case '÷':
+                resultado = primeira / segunda
+                break
+            default:
+                document.querySelector('#resultado-div').innerHTML = 0
+                break
+        }
+    })
+
+    // mostrando resultado
+    document.querySelector('#resultado-div').innerHTML = resultado
+
+    // limpando arrays
+    document.querySelector('#sub-resultado-div').innerHTML = previaConta.join(' ') + " ="
+    previaConta = document.querySelector('#sub-resultado-div').innerHTML
+    conta = []
+    exibirConta = []
+    exibirPreviaConta = []
+    resultado = "a"
 
 }
 
