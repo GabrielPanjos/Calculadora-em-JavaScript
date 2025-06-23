@@ -34,12 +34,14 @@ const adicionarNumero = (index) => {
 
 const adicionarOperacao = (index) => {
 
+    let op = index
+
     // transformando PreviaConta em um array
     exibirPreviaConta = previaConta.join('')
     previaConta = exibirPreviaConta.split('')
 
 
-    // condição caso ja tenha operação (para não ter duas operações, ex: 8xx, 8++)
+    // condição caso ja tenha operação (para não ter duas operações, ex: 8 x x, 8 + + + + )
     if (previaConta[previaConta.length - 1] == "x" || previaConta[previaConta.length - 1] == "%" || previaConta[previaConta.length - 1] == "+" || previaConta[previaConta.length - 1] == "-" || previaConta[previaConta.length - 1] == "÷" || previaConta == "") {
 
         // caso de certo
@@ -47,44 +49,50 @@ const adicionarOperacao = (index) => {
 
         exibirConta = exibirConta.join('')
 
+        previaConta.forEach(digito => {
+            if (isNaN(digito)) {
+                op = digito
+                console.log(op)
+            } else {
 
-        if (index == "%") {
+            }
+        })
+
+
+        if (op == "%") {
 
             previaConta.push('%')
 
             document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
 
-        } else if (index == "*") {
+        } else if (op == "*") {
+
+            console.log('foi')
 
             previaConta.push(' x')
 
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
 
-        } else if (index == "+") {
+        } else if (op == "+") {
 
             previaConta.push(' +')
 
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
 
-        } else if (index == "-") {
+        } else if (op == "-") {
 
             previaConta.push(' -')
 
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
 
-        } else if (index == "/") {
+        } else if (op == "/") {
 
             previaConta.push(' ÷')
 
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), index)
+            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
 
         }
 
-        console.log("array conta: " + conta)
-        console.log("array exibirConta " + exibirConta)
-        console.log("array previaConta " + previaConta)
-        console.log("array exibirPreviaConta " + exibirPreviaConta)
-        console.log("array resultado " + resultado)
 
         if (resultado == "a") {
             resultado = parseInt(exibirConta)
@@ -172,13 +180,13 @@ const atualizarConta = (a = 0, b = "a", operacao) => {
 
         switch (operacao) {
             case '+':
-                return (a + b) + "+"
+                return (a + b) + " +"
             case '-':
-                return (a - b) + "-"
+                return (a - b) + " -"
             case '*':
-                return (a * b) + "x"
+                return (a * b) + " x"
             case '/':
-                return (a / b) + "÷"
+                return (a / b) + " ÷"
             default:
                 return a
         }
