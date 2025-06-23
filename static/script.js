@@ -2,7 +2,8 @@ let conta = []
 let exibirConta = []
 let previaConta = []
 let exibirPreviaConta = []
-let resultado = "a"
+
+let operacaoJaAdicionada = false
 
 const adicionarNumero = (index) => {
 
@@ -34,75 +35,36 @@ const adicionarNumero = (index) => {
 
 const adicionarOperacao = (index) => {
 
-    let op = index
+
 
     // transformando PreviaConta em um array
     exibirPreviaConta = previaConta.join('')
     previaConta = exibirPreviaConta.split('')
 
 
-    // condição caso ja tenha operação (para não ter duas operações, ex: 8 x x, 8 + + + + )
+    // condição caso ja tenha operação (para não ter duas operações, ex: 8xx, 8++)
     if (previaConta[previaConta.length - 1] == "x" || previaConta[previaConta.length - 1] == "%" || previaConta[previaConta.length - 1] == "+" || previaConta[previaConta.length - 1] == "-" || previaConta[previaConta.length - 1] == "÷" || previaConta == "") {
 
         // caso de certo
-    } else {
+    } else if (operacaoJaAdicionada == true) {
+        mostrarResultado()
 
-        exibirConta = exibirConta.join('')
+        operacaoJaAdicionada = false
+    } else if (operacaoJaAdicionada == false) {
 
-        previaConta.forEach(digito => {
-            if (isNaN(digito)) {
-                op = digito
-                console.log(op)
-            } else {
+        if (index == "x" || index == "÷" || index == "+" || index == "-" || index == "%") {
 
-            }
-        })
-
-
-        if (op == "%") {
-
-            previaConta.push('%')
+            previaConta.push(" " + index)
 
             document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
 
-        } else if (op == "*") {
-
-            console.log('foi')
-
-            previaConta.push(' x')
-
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
-
-        } else if (op == "+") {
-
-            previaConta.push(' +')
-
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
-
-        } else if (op == "-") {
-
-            previaConta.push(' -')
-
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
-
-        } else if (op == "/") {
-
-            previaConta.push(' ÷')
-
-            document.querySelector('#sub-resultado-div').innerHTML = atualizarConta(resultado, parseInt(exibirConta), op)
+            operacaoJaAdicionada = true
 
         }
-
-
-        if (resultado == "a") {
-            resultado = parseInt(exibirConta)
-        } else {
-            resultado = parseInt(previaConta)
-        }
-
 
         // limpando array "exibirConta"
         exibirConta = []
+
     }
 
 }
@@ -147,48 +109,6 @@ const apagarDigito = () => {
             // transformando o array "exibirConta" em número inteiro e exibindo o número na calculadora
             document.querySelector('#resultado-div').innerHTML = parseInt(conta.join(''))
 
-        }
-    }
-}
-
-const atualizarConta = (a = 0, b = "a", operacao) => {
-
-    if (a == "a") {
-        return previaConta.join('')
-    } else {
-
-        switch (operacao) {
-            case '+':
-                previaConta = a + b
-                break
-            case '-':
-                previaConta = a - b
-                break
-            case '*':
-                previaConta = a * b
-                break
-            case '/':
-                previaConta = a / b
-                break
-            default:
-                previaConta = a
-                break
-        }
-
-        a = parseInt(a)
-        b = parseInt(b)
-
-        switch (operacao) {
-            case '+':
-                return (a + b) + " +"
-            case '-':
-                return (a - b) + " -"
-            case '*':
-                return (a * b) + " x"
-            case '/':
-                return (a / b) + " ÷"
-            default:
-                return a
         }
     }
 }
@@ -294,8 +214,8 @@ document.querySelector("#oito").addEventListener("click", () => adicionarNumero(
 document.querySelector("#nove").addEventListener("click", () => adicionarNumero(9));
 
 // Colocando eventos nas operações
-document.querySelector('#multiplicar').addEventListener("click", () => adicionarOperacao("*"))
-document.querySelector('#dividir').addEventListener("click", () => adicionarOperacao("/"))
+document.querySelector('#multiplicar').addEventListener("click", () => adicionarOperacao("x"))
+document.querySelector('#dividir').addEventListener("click", () => adicionarOperacao("÷"))
 document.querySelector('#somar').addEventListener("click", () => adicionarOperacao("+"))
 document.querySelector('#subtrair').addEventListener("click", () => adicionarOperacao("-"))
 document.querySelector('#porcentagem').addEventListener("click", () => adicionarOperacao("%"))
