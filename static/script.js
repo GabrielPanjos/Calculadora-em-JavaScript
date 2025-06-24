@@ -77,7 +77,7 @@ const limparConta = () => {
     exibirConta = []
     previaConta = []
     exibirPreviaConta = []
-    resultado = "a"
+    operacaoJaAdicionada = false
 
 }
 
@@ -112,7 +112,7 @@ const apagarDigito = () => {
     }
 }
 
-const mostrarResultado = () => {
+const mostrarResultado = (index) => {
 
     // separando array "previaConta" e transformando em string
     previaConta = previaConta.join('')
@@ -159,6 +159,7 @@ const mostrarResultado = () => {
 
 
     let resultado = 0
+    let calcular = true
 
     // fazendo a operação
     previaConta.forEach(numero => {
@@ -177,20 +178,55 @@ const mostrarResultado = () => {
                 resultado = primeira / segunda
                 break
             default:
-                document.querySelector('#resultado-div').innerHTML = 0
+                calcular = false
                 break
         }
     })
 
-    // mostrando resultado
-    document.querySelector('#resultado-div').innerHTML = resultado
+    if (calcular) {
 
-    // limpando arrays
-    document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('') + " ="
-    previaConta = document.querySelector('#sub-resultado-div').innerHTML
-    conta = []
-    exibirConta = []
-    exibirPreviaConta = []
+    } else {
+        // mostrando resultado
+        document.querySelector('#resultado-div').innerHTML = resultado
+
+        // limpando arrays caso aperte no botão de igual (=)
+        if (index == "=") {
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('') + " ="
+            previaConta = document.querySelector('#sub-resultado-div').innerHTML
+            conta = []
+            exibirConta = []
+            exibirPreviaConta = []
+        } else {
+            document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('')
+
+            previaConta.forEach(numero => {
+
+                switch (numero) {
+                    case '+':
+                        document.querySelector('#sub-resultado-div').innerHTML = resultado + " +"
+                        break
+                    case '-':
+                        document.querySelector('#sub-resultado-div').innerHTML = resultado + " -"
+                        break
+                    case 'x':
+                        document.querySelector('#sub-resultado-div').innerHTML = resultado + " x"
+                        break
+                    case '÷':
+                        document.querySelector('#sub-resultado-div').innerHTML = resultado + " ÷"
+                        break
+                    default:
+                        calcular = false
+                        break
+                }
+            })
+
+            exibirConta = []
+            conta = resultado
+            previaConta = resultado
+
+        }
+    }
+
 
 }
 
@@ -226,4 +262,4 @@ document.querySelector('#limpar').addEventListener("click", () => limparConta())
 document.querySelector('#apagarDigito').addEventListener('click', () => apagarDigito())
 
 // Colocando evento para atualizar conta (mostrar resultado)
-document.querySelector('#igual').addEventListener('click', () => mostrarResultado())
+document.querySelector('#igual').addEventListener('click', () => mostrarResultado("="))
