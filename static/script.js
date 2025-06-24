@@ -48,7 +48,6 @@ const adicionarOperacao = (index) => {
     } else if (operacaoJaAdicionada == true) {
         mostrarResultado()
 
-        operacaoJaAdicionada = false
     } else if (operacaoJaAdicionada == false) {
 
         if (index == "x" || index == "÷" || index == "+" || index == "-" || index == "%") {
@@ -204,25 +203,28 @@ const mostrarResultado = (index) => {
                 switch (numero) {
                     case '+':
                         document.querySelector('#sub-resultado-div').innerHTML = resultado + " +"
+                        previaConta = resultado + "+"
                         break
                     case '-':
                         document.querySelector('#sub-resultado-div').innerHTML = resultado + " -"
+                        previaConta = resultado + "-"
                         break
                     case 'x':
                         document.querySelector('#sub-resultado-div').innerHTML = resultado + " x"
+                        previaConta = resultado + "x"
                         break
                     case '÷':
                         document.querySelector('#sub-resultado-div').innerHTML = resultado + " ÷"
+                        previaConta = resultado + "÷"
                         break
                     default:
-                        calcular = false
+
                         break
                 }
             })
 
             exibirConta = []
-            conta = resultado
-            previaConta = resultado
+
 
         }
     }
