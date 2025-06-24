@@ -12,6 +12,7 @@ const adicionarNumero = (index) => {
         document.querySelector('#sub-resultado-div').innerHTML = ""
     }
 
+    // não adicionar mais de 16 dígitos
     if (exibirConta.length == 16) {
         document.querySelector('#resultado-div').innerHTML = exibirConta.join('')
     } else {
@@ -34,8 +35,6 @@ const adicionarNumero = (index) => {
 }
 
 const adicionarOperacao = (index) => {
-
-
 
     // transformando PreviaConta em um array
     exibirPreviaConta = previaConta.join('')
@@ -187,12 +186,11 @@ const mostrarResultado = () => {
     document.querySelector('#resultado-div').innerHTML = resultado
 
     // limpando arrays
-    document.querySelector('#sub-resultado-div').innerHTML = previaConta.join(' ') + " ="
+    document.querySelector('#sub-resultado-div').innerHTML = previaConta.join('') + " ="
     previaConta = document.querySelector('#sub-resultado-div').innerHTML
     conta = []
     exibirConta = []
     exibirPreviaConta = []
-    resultado = "a"
 
 }
 
@@ -212,6 +210,7 @@ document.querySelector("#seis").addEventListener("click", () => adicionarNumero(
 document.querySelector("#sete").addEventListener("click", () => adicionarNumero(7));
 document.querySelector("#oito").addEventListener("click", () => adicionarNumero(8));
 document.querySelector("#nove").addEventListener("click", () => adicionarNumero(9));
+document.querySelector("#virgula").addEventListener("click", () => adicionarNumero("."));
 
 // Colocando eventos nas operações
 document.querySelector('#multiplicar').addEventListener("click", () => adicionarOperacao("x"))
